@@ -13,7 +13,6 @@ watchEffect(() => {
 
 <template>
   <main font-sans text="center gray-700 dark:gray-300" select-none :class="{ colorblind }">
-    <NotTodayBanner v-if="dayNo < daySince" />
     <Navbar />
     <div p="4">
       <NoQuizToday v-if="!answer.word" />

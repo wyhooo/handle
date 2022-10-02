@@ -4,7 +4,7 @@ import { getAnswerOfDay } from '~/answers'
 
 export function tryFixAnswer(day: number) {
   const meta = history.value[day]
-  const answer = getAnswerOfDay(day)
+  const answer = getAnswerOfDay()
   if (!meta)
     return
   if (!meta.answer && !meta.failed && !meta.passed)

@@ -1,8 +1,8 @@
 import { breakpointsTailwind } from '@vueuse/core'
 import type { MatchType, ParsedChar } from './logic'
 import { START_DATE, TRIES_LIMIT, WORD_LENGTH, parseWord as _parseWord, testAnswer as _testAnswer, checkPass, getHint, isDstObserved, numberToHanzi } from './logic'
-import { useNumberTone as _useNumberTone, inputMode, meta, spMode, tries } from './storage'
-import { getAnswerOfDay } from './answers'
+import { useNumberTone as _useNumberTone, currentIndex, inputMode, meta, spMode, tries } from './storage'
+import { getAnswerOfDay, getIndexOfList, setIndexOfList } from './answers'
 
 export const isIOS = /iPad|iPhone|iPod/.test(navigator.platform) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
 export const isMobile = isIOS || /iPad|iPhone|iPod|Android|Phone|webOS/i.test(navigator.userAgent)
@@ -37,15 +37,20 @@ export const daySince = useDebounce(computed(() => {
   const adjustedNow = isDstObserved(now.value) ? new Date(+now.value + 3600000) : now.value
   return Math.floor((+adjustedNow - +START_DATE) / 86400000)
 }))
-export const dayNo = ref(+(params.get('d') || daySince.value))
+
+if (currentIndex.value === -1)
+  setIndexOfList()
+
+export const dayNo = ref(+(params.get('d') || getIndexOfList()))
+
 export const dayNoHanzi = computed(() => `${numberToHanzi(dayNo.value)}日`)
 export const answer = computed(() =>
   params.get('word')
     ? {
-      word: params.get('word')!,
-      hint: getHint(params.get('word')!),
-    }
-    : getAnswerOfDay(dayNo.value),
+        word: params.get('word')!,
+        hint: getHint(params.get('word')!),
+      }
+    : getAnswerOfDay(),
 )
 
 export const hint = computed(() => answer.value.hint)

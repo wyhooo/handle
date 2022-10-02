@@ -16,6 +16,7 @@ export const useNumberTone = useStorage('handle-number-tone', false)
 export const useCheckAssist = useStorage('handle-check-assist', false)
 export const useStrictMode = useStorage('handle-strict', false)
 export const acceptCollecting = useStorage('handle-accept-collecting', true)
+export const currentIndex = useStorage('handle-current-index', -1)
 
 export const meta = computed<TriesMeta>({
   get() {

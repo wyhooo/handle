@@ -41,11 +41,10 @@ function close() {
       </p>
       <div>
         <button
-          square-btn relative
-          :class="acceptCollecting ? 'text-primary' : 'op80' "
+          square-btn relative :class="acceptCollecting ? 'text-primary' : 'op80' "
           @click="acceptCollecting = !acceptCollecting"
         >
-          <div :class="acceptCollecting ? 'i-carbon-checkbox-checked': 'i-carbon-checkbox'" />
+          <div :class="acceptCollecting ? 'i-carbon-checkbox-checked' : 'i-carbon-checkbox'" />
           {{ t('send-game-data-button') }}
         </button>
       </div>
